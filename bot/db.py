@@ -1,8 +1,11 @@
 import redis
-from dotenv import load_dotenv
-load_dotenv()
 
-db = redis.Redis(host=os.getenv('REDIS_HOST') , port=int(os.getenv('REDIS_PORT')), password=os.getenv('REDIS_PASSWORD') )
+from .constant import Env
+
+db = redis.Redis(
+    host=Env.REDIS_HOST,
+    port=Env.REDIS_PORT,
+    password=Env.REDIS_PASSWORD,
+)
 
 db.ping()
-
