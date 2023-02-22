@@ -1,9 +1,8 @@
 import openai
-import os
-from dotenv import load_dotenv
-load_dotenv()
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+from .constant import Env
+
+openai.api_key = Env.OPENAI_API_KEY
 
 
 def get_response(prompt):
@@ -12,20 +11,17 @@ def get_response(prompt):
         prompt=prompt,
         temperature=0.7,
         max_tokens=2048,
-        # top_p=1,
-        # frequency_penalty=0,
-        # presence_penalty=0.6,
-        stop=["You:", "AI:"]
+        stop=["You:", "AI:"],
     )
-    return response['choices'][0]['text']
+    return response["choices"][0]["text"]
+
 
 def get_image(prompt):
     response = openai.Image.create(
         prompt=prompt,
         # model=MODEL_ENGINE,
         n=1,
-        size="1024x1024"
+        size="1024x1024",
     )
-    img_url = response['data'][0]['url']
+    img_url = response["data"][0]["url"]
     return img_url
-
